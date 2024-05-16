@@ -41,7 +41,7 @@ const SignUp = () => {
       if (response.ok) {
         // Account created successfully
         //alert("Account created successfully!");
-       navigate('/signIn',{ state: { activeTab } })
+       navigate('/signUp/selectInterest')
         // You can redirect the user to another page or perform any other action here
       } else {
         // Account creation failed
@@ -56,12 +56,21 @@ const SignUp = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let user_type = "";
+    if (activeTab === "individual") {
+      user_type = "U";
+    } else if (activeTab === "organization") {
+      user_type = "O";
+    } else if (activeTab === "educational") {
+      user_type = "I";
+    }
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      user_type: user_type,
     }));
   };
-
+  
   return (
     <>
       <div className="container mx-auto h-screen px-4 py-4 flex flex-col md:flex-row ">
@@ -185,7 +194,7 @@ const SignUp = () => {
                   className="justify-center items-start p-5 mt-2 leading-4 rounded-md border border-solid border-neutral-500 w-full pr-10 "
                 />
               </div>
-              <div>
+              {/* <div>
                 <input
                   type="text"
                   required
@@ -195,7 +204,7 @@ const SignUp = () => {
                   onChange={handleChange}
                   className="justify-center items-start p-5 mt-2 leading-4 rounded-md border border-solid border-neutral-500 w-full pr-10 "
                 />
-              </div>
+              </div> */}
               <div className="flex gap-3 mt-6 leading-5  max-md:flex-wrap">
                 {/* <input
             type="checkbox"

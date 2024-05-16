@@ -12,7 +12,12 @@ import SignUp from "./pages/signUp/SignUp";
 import SignIn from "./pages/signIn/SignIn";
 import CreateAccount from "./pages/signUp/createAccount/CreateAccount";
 import Password from "./pages/signIn/password/Password";
+import ProtectedRoute from "./services/ProtectedRoute";
+import Dashboard from "./pages/dashboards/Dashboard";
+import SelectInterest from "./pages/signUp/selectInterest/SelectInterest";
 function App() {
+ 
+
   return (
     <BrowserRouter>
     <HideNav>
@@ -20,7 +25,7 @@ function App() {
     </HideNav>
     
       <Routes>
-    
+     
         <Route path="/" element={<Home />} />
         <Route path="works" element={<Works/>} />
         <Route path="pricing" element={<Pricing />} />
@@ -29,9 +34,12 @@ function App() {
         <Route path="contactUs" element={<ContactUs />} />
         <Route path="signIn" element={<SignIn />} />
         <Route path="signUp" element={<SignUp />} />
+        <Route path="/signUp/selectInterest" element={<SelectInterest />} />
         <Route path="createAccount" element={<CreateAccount />} />
         <Route path="/signIn/password" element={<Password/>} />
-     
+     <Route path="/signIn/dashboard" element={<ProtectedRoute />}>
+     <Route path="/signIn/dashboard" element={<Dashboard />} />
+     </Route>
 
       </Routes>
      

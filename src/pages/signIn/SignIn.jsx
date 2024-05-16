@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useLocation} from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 const SignIn = () => {
   const navigate = useNavigate();
   const [isPressed, setIsPressed] = useState(false);
@@ -15,41 +15,46 @@ const SignIn = () => {
   const location = useLocation();
   const { activeTab } = location.state || {};
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const queryParams = new URLSearchParams(formData);
-      const queryString = queryParams.toString();
-      const url = `http://34.131.249.177:8000/users/login?${queryString}`;
-
-      console.log("Constructed URL:", url);
-
+      const url = `http://34.131.249.177:8000/login`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+          "accept": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: new URLSearchParams({
+          grant_type: "",
+          username: formData.email,
+          password: formData.password,
+          scope: "",
+          client_id: "",
+          client_secret: "",
+        }),
       });
-
+  
       if (response.ok) {
-        // Account created successfully
-        //alert("Account created successfully!");
-        navigate("/dashBoard", { state: { activeTab } });
-        // You can redirect the user to another page or perform any other action here
+        const responseData = await response.json();
+        const accessToken = responseData.access_token;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("loggedIn",true)
+        navigate("dashboard"); 
+        // Handle successful sign-in, such as redirecting to another page
       } else {
-        // Account creation failed
-        alert("Account creation failed!");
+        alert("Sign-in failed. Please check your credentials.");
       }
     } catch (error) {
-      console.error("Error creating account:", error);
-      alert("An error occurred while creating the account.");
+      console.error("Error signing in:", error);
+      alert("An error occurred while signing in. Please try again later.");
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -132,7 +137,7 @@ const SignIn = () => {
                 alt="smart Grader"
               />
             </Link>
-            {activeTab !== "organization" && activeTab !== "educational" && (
+            {activeTab ==="individual" &&(
               <div className="self-center mt-5 text-2xl text-slate-800">
                 Log In as Candidate
               </div>
@@ -148,15 +153,15 @@ const SignIn = () => {
               </div>
             )}
             <form onSubmit={handleSubmit}>
-              <div>
+            <div>
                 <input
-                  type="text"
-                  name="name"
-                  placeholder="Name*"
+                  type="email"
+                  name="email"
+                  placeholder="Email*"
                   required
-                  value={formData.name}
+                  value={formData.email}
                   onChange={handleChange}
-                  className="justify-center items-start p-5 mt-5 leading-4 rounded-md border border-solid border-neutral-500 w-full pr-10 "
+                  className="justify-center items-start p-5 mt-5 leading-4 rounded-md border border-solid border-neutral-500 w-full pr-10"
                 />
               </div>
 
@@ -168,7 +173,7 @@ const SignIn = () => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="justify-center items-start p-5 mt-2 leading-4 rounded-md border border-solid border-neutral-500 w-full pr-10 "
+                  className="justify-center items-start p-5 mt-2 leading-4 rounded-md border border-solid border-neutral-500 w-full pr-10"
                 />
               </div>
 
