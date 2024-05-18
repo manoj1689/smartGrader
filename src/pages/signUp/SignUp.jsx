@@ -240,9 +240,9 @@ const SignUp = () => {
                 <div>
                   <span className="font-light">Already have an account?</span>{" "}
                   <br />
-                  <Link to="signIn">
-                    <span className="text-cyan-600">Log in here</span>
-                  </Link>
+                  
+                    <span className="text-cyan-600 cursor-pointer" onClick={()=>navigate("/signIn")}>Log in here</span>
+                 
                 </div>
               </div>
             </form>

@@ -44,7 +44,7 @@ const SignIn = () => {
         const accessToken = responseData.access_token;
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("loggedIn",true)
-        navigate("dashboard"); 
+        navigate("/signIn/dashboard"); 
         // Handle successful sign-in, such as redirecting to another page
       } else {
         alert("Sign-in failed. Please check your credentials.");
@@ -213,9 +213,9 @@ const SignIn = () => {
                 <div>
                   <span className="font-light text-gray-600">Don't have an account?</span>{" "}
                   <br />
-                  <Link to="signIn">
-                    <span className="text-cyan-600">Signup</span>
-                  </Link>
+                
+                    <div className="text-cyan-600 cursor-pointer" onClick={()=>navigate("/createAccount")}>Signup</div>
+                 
                 </div>
               </div>
             </form>
