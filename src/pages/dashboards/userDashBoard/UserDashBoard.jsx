@@ -1,5 +1,5 @@
 import React ,{useState,useEffect} from 'react'
-import { useNavigate } from 'react-router-dom' 
+import { Link,useNavigate } from 'react-router-dom' 
 function UserDashBoard(props) {
   const [cardsData, setCardsData] = useState([]);
   const navigate = useNavigate();
@@ -47,7 +47,10 @@ function UserDashBoard(props) {
     <div className="px-4 py-4 flex flex-row">
       <div className="flex flex-col px-10 py-5 bg-white border-r border-solid border-black border-opacity-10">
         <div className="flex  mb-8">
-        <img className='h-8' src='../images/smartGraderLogo.png' alt="smart Grader" />
+          <Link to ="/signIn/dashboard">
+          <img className='h-8' src='../images/smartGraderLogo.png' alt="smart Grader" />
+          </Link>
+  
         </div>
         <div className="flex flex-col">
           <div className="flex gap-5 justify-between self-start px-px text-base">

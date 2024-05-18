@@ -1,21 +1,26 @@
-import React,{useEffect,useState} from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-function HideNav({children}) {
-    const [showNavbar,setShowNavbar]=useState(false)
-    const Location=useLocation()
+function HideNav({ children }) {
+  const [showNavbar, setShowNavbar] = useState(false);
+  const Location = useLocation();
 
-    useEffect(()=>{
-       // console.log('This is Location',Location)
-        if (Location.pathname ==='/signUp' || Location.pathname ==='/signUp/selectInterest'  || Location.pathname ==='/signIn'  || Location.pathname ==='/createAccount' || Location.pathname ==='/signIn/password' || Location.pathname ==='/signIn/dashboard' || Location.pathname ==='/signInAs'    ){
-            setShowNavbar(false)
-        }else{
-            setShowNavbar(true)
-        }
-    },[Location])
-  return (
-    <div>{showNavbar && children}</div>
-  )
+  useEffect(() => {
+    // console.log('This is Location',Location)
+    if (
+      Location.pathname === "/" ||
+      Location.pathname === "/works" ||
+      Location.pathname === "/pricing" ||
+      Location.pathname === "/partners" ||
+      Location.pathname === "/FAQ" ||
+      Location.pathname === "contactUs"
+    ) {
+      setShowNavbar(true);
+    } else {
+      setShowNavbar(false);
+    }
+  }, [Location]);
+  return <div>{showNavbar && children}</div>;
 }
 
-export default HideNav
+export default HideNav;
