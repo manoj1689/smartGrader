@@ -1,7 +1,9 @@
 import React,{useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 function SelectInterest() {
     const navigate = useNavigate();
+    const location = useLocation();
+  const { activeTab } = location.state || {};
     const [isPressed, setIsPressed] = useState(false);
     const handleMouseDown = () => {
         setIsPressed(true);
@@ -37,7 +39,7 @@ function SelectInterest() {
         if (selectedCategories.length >= 5) {
           // Proceed with the action, e.g., navigate to the next page
           console.log("Proceeding with selected categories:", selectedCategories);
-          navigate('/signInAs')
+          navigate('/signIn',{state:{activeTab}})
         } else {
           alert("Please select five or more categories to proceed.");
         }

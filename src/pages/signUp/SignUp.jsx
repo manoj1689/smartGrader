@@ -41,7 +41,7 @@ const SignUp = () => {
       if (response.ok) {
         // Account created successfully
         //alert("Account created successfully!");
-       navigate('/signUp/selectInterest')
+       navigate('/signUp/selectInterest',{state:{activeTab}})
         // You can redirect the user to another page or perform any other action here
       } else {
         // Account creation failed
